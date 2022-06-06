@@ -1,26 +1,38 @@
+# version: "3.1"
+# services:
+#   mealie:
+#     build:
+#       context: ./
+#       dockerfile: Dockerfile
+#     container_name: mealie
+#     restart: always
+#     depends_on:
+#       - "postgres"
+#     ports:
+#       - 9090:80
+#     environment:
+#       DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
+#       POSTGRES_USER: mealie
+#       POSTGRES_PASSWORD: mealie
+#       POSTGRES_SERVER: postgres
+#       POSTGRES_PORT: 5432
+#       POSTGRES_DB: mealie
+#   postgres:
+#     container_name: postgres
+#     image: postgres
+#     restart: always
+#     environment:
+#       POSTGRES_PASSWORD: mealie
+#       POSTGRES_USER: mealie
 version: "3.1"
 services:
   mealie:
-    build:
-      context: ./
-      dockerfile: Dockerfile
     container_name: mealie
+    image: hkotel/mealie:latest
     restart: always
-    depends_on:
-      - "postgres"
     ports:
-      - 9090:80
+      - 9925:80
     environment:
-      DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
-      POSTGRES_USER: mealie
-      POSTGRES_PASSWORD: mealie
-      POSTGRES_SERVER: postgres
-      POSTGRES_PORT: 5432
-      POSTGRES_DB: mealie
-  postgres:
-    container_name: postgres
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: mealie
-      POSTGRES_USER: mealie
+      TZ: America/Anchorage
+    volumes:
+      - ./mealie/data/:/app/data
